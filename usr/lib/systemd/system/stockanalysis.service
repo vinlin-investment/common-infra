@@ -1,0 +1,16 @@
+[Unit]
+Description=Stock Analysis Server
+Wants=network.target docker.service
+After=docker.service
+
+[Service]
+ExecStartPre=/usr/bin/docker pull vincentko89/stockanalysis
+ExecStart=/usr/bin/docker run -p 8080:8080 vincentko89/stockanalysis:latest
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+WorkingDirectory=/root/dev/drone
+User=root
+
+[Install]
+WantedBy=multi-user.target
+

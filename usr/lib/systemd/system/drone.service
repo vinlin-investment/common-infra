@@ -1,0 +1,15 @@
+[Unit]
+Description=Drone Server
+Wants=network.target docker.service
+After=docker.service
+
+[Service]
+ExecStart=/usr/local/bin/docker-compose up
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+WorkingDirectory=/root/dev/drone
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
